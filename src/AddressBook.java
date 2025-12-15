@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class AddressBook {
     ArrayList<Contact> contacts = new ArrayList<>();
 
-    // ------ UC2 - Ability to add a new Contact to Address Book -------
+    // ------ UC2 - Ability to add a new Contact to Address Book --------------------
     public void addContact(Contact contact){
         contacts.add(contact);
         System.out.println("Contact added");
@@ -20,7 +21,7 @@ public class AddressBook {
         }
     }
 
-    // ---- UC3 : Edit contact ---------
+    // ---- UC3 : Edit contact using person's name ----------------------------------
     public void editContacts(String name, String newData, int number){
         boolean flag = true;
         for(Contact i : contacts){
@@ -38,10 +39,33 @@ public class AddressBook {
         }
 
         if(flag == true){
-            System.out.println("Contact not Found ");
+            System.out.println("Contact to be updated does not exists.");
         }
         else {
             System.out.println("Contact details with name " + name + " is updated. " );
+        }
+    }
+
+
+    // -------- UC4 : Delete a person using person's name --------------
+
+    public void deleteContact(String firstName){
+        boolean flag = false;
+        Iterator<Contact> it = contacts.iterator();
+        while (it.hasNext()) {
+            Contact c = it.next();
+            if (c.getFirstName().equalsIgnoreCase(firstName)) {
+                it.remove();
+                flag = true;
+                break; // remove first match
+            }
+        }
+
+        if(!flag){
+            System.out.println("Contact to be deleted does not exists. ");
+        }
+        else {
+            System.out.println("Contact details with name " + firstName + " is deleted. " );
         }
     }
 
